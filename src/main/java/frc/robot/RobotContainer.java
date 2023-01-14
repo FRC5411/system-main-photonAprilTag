@@ -9,6 +9,8 @@ import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.Commands.DefaultDrive;
@@ -21,9 +23,12 @@ public class RobotContainer {
   double yaw;
   drive tankDrive;
   PIDController pid;
+  NetworkTableInstance instance;
+  NetworkTableEntry table;
 
   public RobotContainer() {
-    camera = new PhotonCamera("Photonvision");
+    table = new NetworkTableEntry(instance, 0);
+    camera = new PhotonCamera(instance, "Photonvision");
     result = camera.getLatestResult();
     target = result.getBestTarget();
     yaw = target.getYaw();
