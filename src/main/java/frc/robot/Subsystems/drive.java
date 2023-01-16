@@ -12,10 +12,10 @@ public class drive extends SubsystemBase {
 
 
   public drive() {
-    TopLeft = new WPI_TalonFX(0);
+    TopLeft = new WPI_TalonFX(4);
     TopRight = new WPI_TalonFX(1);
     BottomLeft = new WPI_TalonFX(2);
-    BottomRight = new WPI_TalonFX(4);
+    BottomRight = new WPI_TalonFX(3);
 
     TopLeft.follow(BottomLeft);
     TopRight.follow(BottomRight);
