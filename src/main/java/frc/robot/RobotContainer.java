@@ -25,12 +25,20 @@ public class RobotContainer {
     yaw = target.getYaw();
     pid = new PIDController(0.1, 0, 0.1);
 
-    tankDrive.setDefaultCommand(new DefaultDrive(() -> 0, () -> pid.calculate(target.getYaw(), 0), tankDrive));
+    tankDrive.setDefaultCommand(new DefaultDrive(() -> 0, () -> pid.calculate(april_tag(), 0), tankDrive));
 
     configureBindings();
   }
 
   private void configureBindings() {}
+
+  public double april_tag() {
+
+    if(result.hasTargets() == true){
+      target = result.getBestTarget();
+    }
+    return target.getYaw();
+  }
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
