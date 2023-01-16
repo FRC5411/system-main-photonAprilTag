@@ -1,21 +1,21 @@
 package frc.robot.Subsystems;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class drive extends SubsystemBase {
-  WPI_TalonFX TopLeft;
-  WPI_TalonFX TopRight;
-  WPI_TalonFX BottomLeft;
-  WPI_TalonFX BottomRight;
+  WPI_VictorSPX TopLeft;
+  WPI_VictorSPX TopRight;
+  WPI_VictorSPX BottomLeft;
+  WPI_VictorSPX BottomRight;
   DifferentialDrive Tank_Drive;
 
 
   public drive() {
-    TopLeft = new WPI_TalonFX(4);
-    TopRight = new WPI_TalonFX(1);
-    BottomLeft = new WPI_TalonFX(2);
-    BottomRight = new WPI_TalonFX(3);
+    TopLeft = new WPI_VictorSPX(4);
+    TopRight = new WPI_VictorSPX(1);
+    BottomLeft = new WPI_VictorSPX(2);
+    BottomRight = new WPI_VictorSPX(3);
 
     TopLeft.follow(BottomLeft);
     TopRight.follow(BottomRight);
