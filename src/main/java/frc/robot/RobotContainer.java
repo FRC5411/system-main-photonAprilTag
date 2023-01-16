@@ -31,7 +31,7 @@ public class RobotContainer {
     target = new PhotonTrackedTarget();
     A = controller.a();
 
-    pid = new PIDController(0.03, 0, 0.03);
+    pid = new PIDController(0.03, 0, 0.025);
 
     tankDrive.setDefaultCommand(new DefaultDrive(() -> controller.getLeftY(),
      () -> controller.getRightX(), 
