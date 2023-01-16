@@ -20,9 +20,9 @@ public class RobotContainer {
 
   public RobotContainer() {
     camera = new PhotonCamera("Photonvision");
-    result = camera.getLatestResult();
-    target = result.getBestTarget();
-    yaw = target.getYaw();
+//    result = camera.getLatestResult();
+//    target = result.getBestTarget();
+ //   yaw = target.getYaw();
     pid = new PIDController(0.1, 0, 0.1);
 
     tankDrive.setDefaultCommand(new DefaultDrive(() -> 0, () -> pid.calculate(april_tag(), 0), tankDrive));
@@ -33,7 +33,7 @@ public class RobotContainer {
   private void configureBindings() {}
 
   public double april_tag() {
-
+    result = camera.getLatestResult();
     if(result.hasTargets() == true){
       target = result.getBestTarget();
     }
