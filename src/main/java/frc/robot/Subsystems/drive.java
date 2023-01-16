@@ -1,26 +1,31 @@
 package frc.robot.Subsystems;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class drive extends SubsystemBase {
-  WPI_VictorSPX TopLeft;
-  WPI_VictorSPX TopRight;
-  WPI_VictorSPX BottomLeft;
-  WPI_VictorSPX BottomRight;
+  PWMVictorSPX TopLeft;
+  PWMVictorSPX TopRight;
+  PWMVictorSPX BottomLeft;
+  PWMVictorSPX BottomRight;
+  MotorControllerGroup Right;
+  MotorControllerGroup Left;
   DifferentialDrive Tank_Drive;
 
 
   public drive() {
-    TopLeft = new WPI_VictorSPX(4);
-    TopRight = new WPI_VictorSPX(1);
-    BottomLeft = new WPI_VictorSPX(2);
-    BottomRight = new WPI_VictorSPX(3);
+    TopLeft = new PWMVictorSPX(4);
+    TopRight = new PWMVictorSPX(1);
+    BottomLeft = new PWMVictorSPX(2);
+    BottomRight = new PWMVictorSPX(3);
 
-    TopLeft.follow(BottomLeft);
-    TopRight.follow(BottomRight);
+    Left = new MotorControllerGroup(TopLeft, BottomLeft);
+    Right = new MotorControllerGroup(TopRight, BottomRight);
 
-    Tank_Drive = new DifferentialDrive(BottomLeft, BottomRight);
+    Right.setInverted(true);
+
+    Tank_Drive = new DifferentialDrive(Left, Right);
   }
 
   public void arcade_drive(double speed, double rotation) {
