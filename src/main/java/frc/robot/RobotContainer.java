@@ -1,12 +1,9 @@
 package frc.robot;
 import org.photonvision.PhotonCamera;
-import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -46,14 +43,14 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    A.onTrue(new DefaultDrive(() -> 0, () -> angle_pid.calculate(april_tag(), 0), tankDrive));
+    A.onTrue(new DefaultDrive(() -> 0, () -> angle_pid.calculate(april_tag_deg(), 0), tankDrive));
     A.onFalse(new DefaultDrive(() -> 0, () -> 0, tankDrive));
 
-    B.onTrue(new DefaultDrive(() -> 0, () -> move_pid.calculate(april_tagr(), 0.05), tankDrive));
+    B.onTrue(new DefaultDrive(() -> 0, () -> move_pid.calculate(april_tag_x(), 0.05), tankDrive));
     B.onFalse(new DefaultDrive(() -> 0, () -> 0, tankDrive));
   }
 
-  public double april_tag() {
+  public double april_tag_deg() {
     result = camera.getLatestResult();
     if(result.hasTargets() == true){
       SmartDashboard.putBoolean("Has Targets", result.hasTargets());
@@ -63,16 +60,12 @@ public class RobotContainer {
     return 0.0;
   }
 
-  public double april_tagr() {
-    double height = Units.inchesToMeters(24);
-    double target = Units.inchesToMeters(22.5);
-    double angle = 1.4056;
+  public double april_tag_x() {
     result = camera.getLatestResult();
     if(result.hasTargets() == true){
       SmartDashboard.putBoolean("Has Targets", result.hasTargets());
-      double dist = PhotonUtils.calculateDistanceToTargetMeters(height, target, angle, 
-      Units.degreesToRadians(result.getBestTarget().getPitch()));
-      return dist;
+      target = result.getBestTarget();
+      return target.getBestCameraToTarget().getX();
     }
     return 0.0;
   }
