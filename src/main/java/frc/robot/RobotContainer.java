@@ -44,10 +44,10 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    A.onTrue(new DefaultDrive(() -> 0, () -> -angle_pid.calculate(april_tag_deg(), 0), tankDrive));
+    A.onTrue(new DefaultDrive(() -> 0, () -> -angle_pid.calculate(target_yaw(), 0), tankDrive));
     A.onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
 
-    B.onTrue(new DefaultDrive(() -> move_pid.calculate(april_tag_x(), 0.05), () -> 0, tankDrive));
+    B.onTrue(new DefaultDrive(() -> move_pid.calculate(target_x(), 0.05), () -> 0, tankDrive));
     B.onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
 //    A.toggleOnTrue(new DefaultDrive(() -> (move_pid.calculate(april_tag_x() - controller.getLeftX(),0)), () -> (-angle_pid.calculate(april_tag_deg() - controller.getLeftY(),0)), tankDrive));
     tankDrive.setDefaultCommand(new DefaultDrive(() -> controller.getLeftY(),
@@ -55,7 +55,7 @@ public class RobotContainer {
     tankDrive));
   }
 
-  public double april_tag_deg() {
+  public double target_yaw() {
     result = camera.getLatestResult();
     if(result.hasTargets() == true){
       SmartDashboard.putBoolean("Has Targets", result.hasTargets());
@@ -65,7 +65,7 @@ public class RobotContainer {
     return 0.0;
   }
 
-  public double april_tag_x() {
+  public double target_x() {
     result = camera.getLatestResult();
     if(result.hasTargets() == true){
       SmartDashboard.putBoolean("Has Targets", result.hasTargets());
