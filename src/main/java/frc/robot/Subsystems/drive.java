@@ -28,8 +28,12 @@ public class drive extends SubsystemBase {
     Tank_Drive = new DifferentialDrive(Left, Right);
   }
 
+  public void stop() {
+    Tank_Drive.arcadeDrive(0, 0);
+  }
+
   public void arcade_drive(double speed, double rotation) {
-    Tank_Drive.arcadeDrive(speed, rotation, true);
+    Tank_Drive.arcadeDrive(speed, -rotation, true);
   }
   
   @Override

@@ -6,6 +6,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Commands.DefaultDrive;
@@ -32,8 +33,8 @@ public class RobotContainer {
     A = controller.a();
     B = controller.b();
 
-    angle_pid = new PIDController(0.03, 0, 0.025);
-    move_pid = new PIDController(0.03, 0, 0.025);
+    angle_pid = new PIDController(0.03, 0, 0.04);
+    move_pid = new PIDController(1, 0, 0);
 
     tankDrive.setDefaultCommand(new DefaultDrive(() -> controller.getLeftY(),
      () -> controller.getRightX(), 
@@ -43,11 +44,15 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    A.onTrue(new DefaultDrive(() -> 0, () -> angle_pid.calculate(april_tag_deg(), 0), tankDrive));
-    A.onFalse(new DefaultDrive(() -> 0, () -> 0, tankDrive));
+    A.onTrue(new DefaultDrive(() -> 0, () -> -angle_pid.calculate(april_tag_deg(), 0), tankDrive));
+    A.onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
 
-    B.onTrue(new DefaultDrive(() -> 0, () -> move_pid.calculate(april_tag_x(), 0.05), tankDrive));
-    B.onFalse(new DefaultDrive(() -> 0, () -> 0, tankDrive));
+    B.onTrue(new DefaultDrive(() -> move_pid.calculate(april_tag_x(), 0.05), () -> 0, tankDrive));
+    B.onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
+//    A.toggleOnTrue(new DefaultDrive(() -> (move_pid.calculate(april_tag_x() - controller.getLeftX(),0)), () -> (-angle_pid.calculate(april_tag_deg() - controller.getLeftY(),0)), tankDrive));
+    tankDrive.setDefaultCommand(new DefaultDrive(() -> controller.getLeftY(),
+    () -> controller.getRightX(), 
+    tankDrive));
   }
 
   public double april_tag_deg() {
