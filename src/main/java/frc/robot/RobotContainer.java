@@ -5,7 +5,6 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -38,18 +37,8 @@ public class RobotContainer {
     X = controller.x();
 
     side_pid = new PIDController(1, 0, 0);
-    angle_pid = new PIDController(0.03, 0.1, 1.75);
+    angle_pid = new PIDController(0.03, 0, 1);
     move_pid = new PIDController(1, 0, 0);
-
-//    side_pid.setTolerance(1, 0);
-
-    System.out.println(angle_pid.calculate(10, 0));
-    System.out.println(angle_pid.calculate(8, 0));
-    System.out.println(angle_pid.calculate(6, 0));
-    System.out.println(angle_pid.calculate(4, 0));
-    System.out.println(angle_pid.calculate(2, 0));
-    System.out.println(angle_pid.calculate(0, 0));
-
 
     tankDrive.setDefaultCommand(new DefaultDrive(() -> controller.getLeftY(),
      () -> controller.getRightX(), 
@@ -66,7 +55,6 @@ public class RobotContainer {
     B.onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
   
     X.onTrue(onXPressed());
-//    X.onTrue(new DefaultDrive(() -> side_pid.calculate(target_x(), 0), () -> 0, tankDrive));
     X.onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
   
   tankDrive.setDefaultCommand(new DefaultDrive(() -> controller.getLeftY(),
@@ -108,10 +96,6 @@ public class RobotContainer {
     return 0.0;
   }
 
-  public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
-  }
-
   public Command onXPressed()
   {
     // Called once when the X button is pressed.
@@ -142,7 +126,7 @@ public class RobotContainer {
   public double calcSpeedForSideAlignment ()
   {
     double measure = target_y();
-    double speed = side_pid.calculate(measure, 0);
+    double speed = controlled_calculate(side_pid, measure, 0, "Name");
 
     SmartDashboard.putNumber("speed", speed);
 
@@ -150,8 +134,12 @@ public class RobotContainer {
     
   }
 
-  public double calculate(PIDController PID, double measure, double setpoint, String name) {
+  public double controlled_calculate(PIDController PID, double measure, double setpoint, String name) {
     SmartDashboard.putNumber(name, PID.calculate(measure));
-    return PID.calculate(measure, 0);
+    double value = PID.calculate(measure, measure);
+    if(value > 0.25) {
+      value = 0.25;
+    }
+    return value;
   }
 }
