@@ -2,6 +2,7 @@ package frc.robot.Subsystems;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class drive extends SubsystemBase {
@@ -33,6 +34,8 @@ public class drive extends SubsystemBase {
   }
 
   public void arcade_drive(double speed, double rotation) {
+    SmartDashboard.putNumber("Speed", speed);
+    SmartDashboard.putNumber("Rotation", rotation);
     Tank_Drive.arcadeDrive(speed, -rotation, true);
   }
   
