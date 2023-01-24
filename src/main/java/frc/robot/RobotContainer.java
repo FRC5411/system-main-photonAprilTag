@@ -36,7 +36,7 @@ public class RobotContainer {
     B = controller.b();
     X = controller.x();
 
-    side_pid = new PIDController(1, 0, 0);
+    side_pid = new PIDController(10, 0, 0);
     angle_pid = new PIDController(0.03, 0, 1);
     move_pid = new PIDController(1, 0, 0);
 
@@ -54,7 +54,8 @@ public class RobotContainer {
     B.onTrue(new DefaultDrive(() -> move_pid.calculate(target_x(), 0.05), () -> 0, tankDrive));
     B.onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
   
-    X.onTrue(onXPressed());
+//    X.onTrue(onXPressed());
+    X.onTrue(new DefaultDrive(() -> -side_pid.calculate(target_y(), 0), () -> 0, tankDrive));
     X.onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
   
   tankDrive.setDefaultCommand(new DefaultDrive(() -> controller.getLeftY(),
@@ -121,6 +122,13 @@ public class RobotContainer {
 
     //return new DefaultDrive(speed, rotation, tankDrive);
     return new DefaultDrive(() -> calcSpeedForSideAlignment(), () -> 0.0, tankDrive);
+  }
+
+  public double deadzone(double input) {
+    if(Math.abs(input) > 0.25) {
+      input = Math.signum(input) * 0.25;
+    }
+    return input;
   }
 
   public double calcSpeedForSideAlignment ()
