@@ -36,7 +36,7 @@ public class RobotContainer {
     B = controller.b();
     X = controller.x();
 
-    side_pid = new PIDController(10, 0, 0);
+    side_pid = new PIDController(5, 0, 0);
     angle_pid = new PIDController(0.03, 0, 1);
     move_pid = new PIDController(1, 0, 0);
 
