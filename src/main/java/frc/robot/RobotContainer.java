@@ -144,7 +144,7 @@ public class RobotContainer {
 
   public double controlled_calculate(PIDController PID, double measure, double setpoint, String name) {
     SmartDashboard.putNumber(name, PID.calculate(measure));
-    double value = PID.calculate(measure, measure);
+    double value = PID.calculate(measure, 0);
     if(value > 0.25) {
       value = 0.25;
     }
