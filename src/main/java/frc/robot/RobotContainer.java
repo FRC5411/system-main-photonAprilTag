@@ -3,6 +3,7 @@ import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -71,7 +72,7 @@ public class RobotContainer {
       SmartDashboard.putNumber("Yaw", target.getYaw());
       return target.getYaw();
     }
-    return 0.0;
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
   }
 
   public double target_x() {
@@ -143,7 +144,7 @@ public class RobotContainer {
   }
 
   public double controlled_calculate(PIDController PID, double measure, double setpoint, String name) {
-    SmartDashboard.putNumber(name, PID.calculate(measure));
+    SmartDashboard.putNumber(name, PID.calculate(measure, 0));
     double value = PID.calculate(measure, 0);
     if(value > 0.25) {
       value = 0.25;
