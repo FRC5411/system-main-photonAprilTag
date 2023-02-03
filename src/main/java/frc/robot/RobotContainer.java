@@ -10,12 +10,14 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Commands.DefaultDrive;
+import frc.robot.Subsystems.Limelight;
 import frc.robot.Subsystems.drive;
 
 public class RobotContainer {
-  PhotonCamera camera;
+/*  PhotonCamera camera;
   PhotonTrackedTarget target;
-  PhotonPipelineResult result;
+  PhotonPipelineResult result;*/
+  Limelight cam;
   double yaw;
   drive tankDrive;
   PIDController angle_pid;
@@ -27,12 +29,12 @@ public class RobotContainer {
   Trigger X;
 
   public RobotContainer() {
-
+    cam = new Limelight();
     controller = new CommandXboxController(0);
     tankDrive = new drive();
-    camera = new PhotonCamera("Microsoft_LifeCam_HD-3000");
+/*    camera = new PhotonCamera("Microsoft_LifeCam_HD-3000");
     result = new PhotonPipelineResult();
-    target = new PhotonTrackedTarget();
+    target = new PhotonTrackedTarget();*/
     A = controller.a();
     B = controller.b();
     X = controller.x();
@@ -49,21 +51,21 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    A.onTrue(new DefaultDrive(() -> 0, () -> -angle_pid.calculate(target_yaw(), 0), tankDrive));
+    A.onTrue(new DefaultDrive(() -> 0, () -> -angle_pid.calculate(cam.getyaw(), 0), tankDrive));
     A.onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
 
-    B.onTrue(new DefaultDrive(() -> move_pid.calculate(target_x(), 0.05), () -> 0, tankDrive));
+    B.onTrue(new DefaultDrive(() -> move_pid.calculate(cam.getPose().getX(), 0.05), () -> 0, tankDrive));
     B.onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
   
 //    X.onTrue(onXPressed());
-    X.onTrue(new DefaultDrive(() -> -side_pid.calculate(target_y(), 0), () -> 0, tankDrive));
+    X.onTrue(new DefaultDrive(() -> -side_pid.calculate(cam.getPose().getY(), 0), () -> 0, tankDrive));
     X.onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
   
   tankDrive.setDefaultCommand(new DefaultDrive(() -> controller.getLeftY(),
     () -> controller.getRightX(), 
     tankDrive));
   }
-
+/*
   public double target_yaw() {
     result = camera.getLatestResult();
     if(result.hasTargets() == true){
@@ -101,7 +103,7 @@ public class RobotContainer {
   public Command onXPressed()
   {
     // Called once when the X button is pressed.
-    /* 
+
     side_pid.reset();
      SmartDashboard.putString("Value","onXPressed called " + 
     " 10 " + side_pid.calculate(1000.0) + 
@@ -112,7 +114,7 @@ public class RobotContainer {
     "  0 " + side_pid.calculate(8.0) +
     "\n");
        SmartDashboard.putString("X", "ON XPRESSEdON XPRESSEdON XPRESSEdON XPRESSEdON XPRESSEdON XPRESSEdON XPRESSEdON XPRESSEd");
-    */
+    
 
     side_pid.reset();
     //DoubleSupplier speed = () -> calcSpeedForSideAlignment();//calculate(side_pid, target_yaw(), 0, "PID");
@@ -151,4 +153,5 @@ public class RobotContainer {
     }
     return value;
   }
+*/
 }
