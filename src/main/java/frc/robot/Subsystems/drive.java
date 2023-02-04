@@ -36,7 +36,7 @@ public class drive extends SubsystemBase {
   public void arcade_drive(double speed, double rotation) {
     SmartDashboard.putNumber("Speed", speed);
     SmartDashboard.putNumber("Rotation", rotation);
-    Tank_Drive.arcadeDrive(speed, -rotation, true);
+    Tank_Drive.arcadeDrive(-speed, -rotation, true);
   }
   
   @Override
