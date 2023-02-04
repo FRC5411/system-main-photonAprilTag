@@ -2,6 +2,7 @@ package frc.robot.Subsystems;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -36,22 +37,27 @@ public class Limelight extends SubsystemBase {
   }
 
   public double getyaw() {
+    SmartDashboard.putNumber("Yaw", limelight.getEntry("tx").getDouble(0));
     return limelight.getEntry("tx").getDouble(0);
   }
 
   public double getPitch() {
+    SmartDashboard.putNumber("Pitch", limelight.getEntry("ty").getDouble(0));
     return limelight.getEntry("ty").getDouble(0);
   }
 
   public double getArea() {
+    SmartDashboard.putNumber("Area", limelight.getEntry("ta").getDouble(0));
     return limelight.getEntry("ta").getDouble(0);
   }
 
   public Pose2d getPose() {
     if(team == "blue") {
+      SmartDashboard.putNumberArray("Pose", limelight.getEntry("botpose_wpiblue").getDoubleArray(new double[6]));
       posevalues = limelight.getEntry("botpose_wpiblue").getDoubleArray(new double[6]);
     }
     if(team == "red") {
+      SmartDashboard.putNumberArray("Yaw", limelight.getEntry("botpose_wpired").getDoubleArray(new double[6]));
       posevalues = limelight.getEntry("botpose_wpired").getDoubleArray(new double[6]);
     }
     Translation2d translate = new Translation2d(posevalues[0], posevalues[1]);
