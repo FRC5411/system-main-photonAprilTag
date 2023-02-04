@@ -84,7 +84,15 @@ public class Limelight extends SubsystemBase {
   }*/
 
   @Override
-  public void periodic() {}
+  public void periodic() {
+    SmartDashboard.putNumber("Yaw", getyaw());
+    SmartDashboard.putNumber("Pitch", getPitch());
+    SmartDashboard.putNumber("Area", getArea());
+    SmartDashboard.putNumber("X", getPose().getX());
+    SmartDashboard.putNumber("Y", getPose().getY());
+    SmartDashboard.putNumber("PoseRot", getPose().getRotation().getDegrees());
+    SmartDashboard.putNumber("Pip", getPipeLineIndex());
+  }
 
 
 }

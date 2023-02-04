@@ -16,10 +16,10 @@ public class drive extends SubsystemBase {
 
 
   public drive() {
-    TopLeft = new PWMVictorSPX(4);
-    TopRight = new PWMVictorSPX(1);
-    BottomLeft = new PWMVictorSPX(2);
-    BottomRight = new PWMVictorSPX(3);
+    TopLeft = new PWMVictorSPX(12);
+    TopRight = new PWMVictorSPX(13);
+    BottomLeft = new PWMVictorSPX(14);
+    BottomRight = new PWMVictorSPX(15);
 
     Left = new MotorControllerGroup(TopLeft, BottomLeft);
     Right = new MotorControllerGroup(TopRight, BottomRight);

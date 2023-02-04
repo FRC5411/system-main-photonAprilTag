@@ -54,6 +54,8 @@ public class RobotContainer {
 //    X.onTrue(onXPressed());
     X.onTrue(new DefaultDrive(() -> -side_pid.calculate(cam.getPose().getY(), 0), () -> 0, tankDrive));
     X.onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
+
+    controller.y().onTrue(new InstantCommand(cam::switchPipeline, cam));
   
   tankDrive.setDefaultCommand(new DefaultDrive(() -> controller.getLeftY(),
     () -> controller.getRightX(), 
