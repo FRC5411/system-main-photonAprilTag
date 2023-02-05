@@ -34,8 +34,8 @@ public class RobotContainer {
     X = controller.x();
 
     side_pid = new PIDController(5, 0, 0);
-    angle_pid = new PIDController(0.045, 0, 0.5);
-    move_pid = new PIDController(1, 0, 0);
+    angle_pid = new PIDController(0.045, 0, 0.25);
+    move_pid = new PIDController(0.8, 0.1, 0);
 
     angle_pid.setTolerance(5);
 
@@ -50,7 +50,7 @@ public class RobotContainer {
     A.onTrue(new DefaultDrive(() -> 0, () -> -angle_pid.calculate(cam.getyaw(), 0), tankDrive));
     A.onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
 
-    B.onTrue(new DefaultDrive(() -> move_pid.calculate(cam.getPose().getX(), 0.05), () -> 0, tankDrive));
+    B.onTrue(new DefaultDrive(() -> -move_pid.calculate(cam.getPose().getX(), 14), () -> 0, tankDrive));
     B.onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
   
 //    X.onTrue(onXPressed());
