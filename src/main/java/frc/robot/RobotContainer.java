@@ -37,7 +37,7 @@ public class RobotContainer {
     angle_pid = new PIDController(0.045, 0, 0.5);
     move_pid = new PIDController(1, 0, 0);
 
-    angle_pid.setTolerance(0.5);
+    angle_pid.setTolerance(5);
 
     tankDrive.setDefaultCommand(new DefaultDrive(() -> controller.getLeftY(),
      () -> controller.getRightX(), 
