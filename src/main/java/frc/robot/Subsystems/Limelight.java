@@ -64,6 +64,14 @@ public class Limelight extends SubsystemBase {
     Rotation2d rotation = new Rotation2d(Math.toRadians(posevalues[3]));
     return new Pose2d(translate, rotation);
   }
+
+  public Pose2d getTarget2d() {
+    posevalues = limelight.getEntry("targetpose_cameraspace").getDoubleArray(new double[6]);
+    SmartDashboard.putNumberArray("Distance Pose", posevalues);
+    Translation2d translate = new Translation2d(posevalues[3], posevalues[4]);
+    Rotation2d rotation = new Rotation2d(Math.toRadians(posevalues[3]));
+    return new Pose2d(translate, rotation);
+  }
 /*
   public double getTapeXDistance() {
     return LL.SLOPE * getArea() + LL.YINT;
@@ -87,11 +95,13 @@ public class Limelight extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Yaw", getyaw());
     SmartDashboard.putNumber("Pitch", getPitch());
-    SmartDashboard.putNumber("Area", getArea());
+//    SmartDashboard.putNumber("Area", getArea());
     SmartDashboard.putNumber("X", getPose().getX());
     SmartDashboard.putNumber("Y", getPose().getY());
     SmartDashboard.putNumber("PoseRot", getPose().getRotation().getDegrees());
-    SmartDashboard.putNumber("Pip", getPipeLineIndex());
+//    SmartDashboard.putNumber("Pip", getPipeLineIndex());
+    SmartDashboard.putNumber("Dist X", getTarget2d().getX());
+    SmartDashboard.putNumber("Dist Y", getTarget2d().getY());
   }
 
 

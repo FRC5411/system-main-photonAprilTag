@@ -1,6 +1,5 @@
 package frc.robot;
 import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -30,7 +29,6 @@ public class RobotContainer {
   public RobotContainer() {
     cam = new Limelight();
     controller = new CommandXboxController(0);
-    tankDrive = new drive();
 /*    camera = new PhotonCamera("Microsoft_LifeCam_HD-3000");
     result = new PhotonPipelineResult();
     target = new PhotonTrackedTarget();*/
@@ -45,6 +43,8 @@ public class RobotContainer {
     angle_pid.setTolerance(5);
 
     navX = new AHRS(SPI.Port.kMXP);
+
+    tankDrive = new drive(navX);
 
     tankDrive.setDefaultCommand(new DefaultDrive(() -> controller.getLeftY(),
      () -> controller.getRightX(), 

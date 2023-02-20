@@ -1,4 +1,5 @@
 package frc.robot.Subsystems;
+import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
@@ -13,14 +14,15 @@ public class drive extends SubsystemBase {
   MotorControllerGroup Right;
   MotorControllerGroup Left;
   DifferentialDrive Tank_Drive;
-  
+  AHRS m_gyro;
 
-
-  public drive() {
+  public drive(AHRS gyro) {
     TopLeft = new PWMVictorSPX(4);
     TopRight = new PWMVictorSPX(1);
     BottomLeft = new PWMVictorSPX(2);
     BottomRight = new PWMVictorSPX(3);
+
+    m_gyro = gyro;
 
     Left = new MotorControllerGroup(TopLeft, BottomLeft);
     Right = new MotorControllerGroup(TopRight, BottomRight);
@@ -42,6 +44,12 @@ public class drive extends SubsystemBase {
   
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+/*    SmartDashboard.putNumber("Gyro Yaw", m_gyro.getYaw());
+    SmartDashboard.putNumber("Gyro Pitch", m_gyro.getPitch());
+    SmartDashboard.putNumber("Gyro Roll", m_gyro.getRoll());
+    SmartDashboard.putNumber("Right upper motor", 0);
+    SmartDashboard.putNumber("Left upper motor", 0);
+    SmartDashboard.putNumber("Right lower mtor", 0);
+    SmartDashboard.putNumber(getName(), 0);*/
   }
 }
