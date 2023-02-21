@@ -72,34 +72,14 @@ public class Limelight extends SubsystemBase {
     Rotation2d rotation = new Rotation2d(Math.toRadians(posevalues[3]));
     return new Pose2d(translate, rotation);
   }
-/*
-  public double getTapeXDistance() {
-    return LL.SLOPE * getArea() + LL.YINT;
-  }
-
-  public double getTapeYDistance() {
-    return Math.tan(getyaw()) * getTapeXDistance();
-  }
-
-  public double alignTarget(double dist) {
-    PIDController LLAlign = new PIDController(0, 0, 0);
-    return LLAlign.calculate(dist, 0);
-  }
-
-  public double movetotarget(double dist) {
-    PIDController move = new PIDController(0, 0, 0);
-    return move.calculate(dist, 0);
-  }*/
 
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Yaw", getyaw());
     SmartDashboard.putNumber("Pitch", getPitch());
-//    SmartDashboard.putNumber("Area", getArea());
     SmartDashboard.putNumber("X", getPose().getX());
     SmartDashboard.putNumber("Y", getPose().getY());
     SmartDashboard.putNumber("PoseRot", getPose().getRotation().getDegrees());
-//    SmartDashboard.putNumber("Pip", getPipeLineIndex());
     SmartDashboard.putNumber("Dist X", getTarget2d().getX());
     SmartDashboard.putNumber("Dist Y", getTarget2d().getY());
   }
