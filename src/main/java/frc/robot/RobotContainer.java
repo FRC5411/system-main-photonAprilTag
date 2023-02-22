@@ -54,15 +54,7 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    A.onTrue(new DefaultDrive(() -> 0, () -> -angle_pid.calculate(cam.getYaw(), 0), tankDrive));
-    A.onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
-
-    B.onTrue(new DefaultDrive(() -> -move_pid.calculate(cam.getPose().getX(), 14), () -> 0, tankDrive));
-    B.onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
-  
-//    X.onTrue(onXPressed());
-    X.onTrue(new DefaultDrive(() -> -side_pid.calculate(cam.getPose().getY(), 0), () -> 0, tankDrive));
-    X.onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
+    A.toggleOnTrue(new InstantCommand( () -> {tankDrive.apriltagAlignment(cam);}));
 
     controller.y().onTrue(new AutoEngageCommand(tankDrive, navX));
     controller.y().onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
