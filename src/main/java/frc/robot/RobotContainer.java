@@ -54,7 +54,7 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    A.onTrue(new DefaultDrive(() -> 0, () -> -angle_pid.calculate(cam.getyaw(), 0), tankDrive));
+    A.onTrue(new DefaultDrive(() -> 0, () -> -angle_pid.calculate(cam.getYaw(), 0), tankDrive));
     A.onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
 
     B.onTrue(new DefaultDrive(() -> -move_pid.calculate(cam.getPose().getX(), 14), () -> 0, tankDrive));

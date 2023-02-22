@@ -36,7 +36,7 @@ public class Limelight extends SubsystemBase {
     return true;
   }
 
-  public double getyaw() {
+  public double getYaw() {
     SmartDashboard.putNumber("Yaw", limelight.getEntry("tx").getDouble(0));
     return limelight.getEntry("tx").getDouble(0);
   }
@@ -75,7 +75,7 @@ public class Limelight extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Yaw", getyaw());
+    SmartDashboard.putNumber("Yaw", getYaw());
     SmartDashboard.putNumber("Pitch", getPitch());
     SmartDashboard.putNumber("X", getPose().getX());
     SmartDashboard.putNumber("Y", getPose().getY());
