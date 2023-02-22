@@ -54,7 +54,7 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    A.toggleOnTrue(new InstantCommand( () -> {tankDrive.apriltagAlignment(cam);}));
+    A.whileTrue(new InstantCommand( () -> {tankDrive.apriltagAlignment(cam);}));
 
     controller.y().onTrue(new AutoEngageCommand(tankDrive, navX));
     controller.y().onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
