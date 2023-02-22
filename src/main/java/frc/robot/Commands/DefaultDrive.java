@@ -23,7 +23,7 @@ public class DefaultDrive extends CommandBase {
 
   @Override
   public void execute() {
-    m_drive.arcade_drive(m_speed.getAsDouble(), m_rotation.getAsDouble());
+    m_drive.arcadeDrive(m_speed.getAsDouble(), m_rotation.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.

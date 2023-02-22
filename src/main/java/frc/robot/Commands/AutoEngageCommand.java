@@ -26,7 +26,7 @@ public class AutoEngageCommand extends CommandBase {
     errorPitch = navX.getPitch() - AutoEngage.TARGET_PITCH;
     drivePowerPitch = -Math.min(AutoEngage.DRIVEPOWER_KP * errorPitch, 1);
     drivePowerYaw = -Math.min(AutoEngage.DRIVEPOWER_KP * errorYaw, 1);
-    robotDrive.arcade_drive(drivePowerPitch, drivePowerYaw);
+    robotDrive.arcadeDrive(drivePowerPitch, drivePowerYaw);
   }
   @Override
   public void end(boolean interrupted) {
