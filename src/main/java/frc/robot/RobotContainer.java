@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.SPI;
 import frc.robot.Commands.AutoEngageCommand;
 import frc.robot.Commands.DefaultDrive;
+import frc.robot.Commands.anglealign;
+import frc.robot.Commands.distalign;
 import frc.robot.Subsystems.Limelight;
 import frc.robot.Subsystems.drive;
 
@@ -51,6 +53,11 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+    controller.a().onTrue(new anglealign(cam, tankDrive, angle_pid));
+    controller.a().onFalse(new InstantCommand(tankDrive::stop, tankDrive));
+
+    controller.b().onTrue(new distalign(cam, tankDrive, move_pid));
+    controller.b().onFalse(new InstantCommand(tankDrive::stop, tankDrive));
 
     controller.y().onTrue(new AutoEngageCommand(tankDrive, navX));
     controller.y().onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
