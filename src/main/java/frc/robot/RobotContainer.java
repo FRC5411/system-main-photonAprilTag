@@ -11,9 +11,6 @@ import frc.robot.Subsystems.Limelight;
 import frc.robot.Subsystems.drive;
 
 public class RobotContainer {
-/*  PhotonCamera camera;
-  PhotonTrackedTarget target;
-  PhotonPipelineResult result;*/
   Limelight cam;
   double yaw;
   drive tankDrive;
@@ -54,7 +51,6 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    A.whileTrue(new InstantCommand( () -> {tankDrive.apriltagAlignment(cam);}));
 
     controller.y().onTrue(new AutoEngageCommand(tankDrive, navX));
     controller.y().onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
