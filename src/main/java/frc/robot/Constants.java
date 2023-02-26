@@ -10,5 +10,15 @@ public class Constants {
         public static final double TARGET_YAW = 0;
         public static final double PITCH_TOLERANCE = 2.5;
         public static final double YAW_TOLERANCE = 2.5;
-      }   
+      }
+    public static final double xline = 1.9;
+    public static final double bottomcone = 0.5;
+    public static final double bottomcube = 1.07;
+    public static final double cone2 = 1.6;
+    public static final double cone3 = 2.13;
+    public static final double cube2 = 2.74;
+    public static final double cone4 = 3.29;
+    public static final double cone5 = 3.74;
+    public static final double topcube = 4.45;
+    public static final double topcone = 5.05; 
 }

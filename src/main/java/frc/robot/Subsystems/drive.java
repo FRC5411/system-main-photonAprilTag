@@ -58,6 +58,50 @@ public class drive extends SubsystemBase {
     return dist;
   }
 
+  public double coneminimizer(double x1, double x2, double x3, double x4, double x5, double x6, double value) {
+    double dist1 = value - x1;
+    double dist2 = value - x2;
+    double dist3 = value - x3;
+    double dist4 = value - x4;
+    double dist5 = value - x5;
+    double dist6 = value - x6;
+    if(Math.abs(dist1) < Math.abs(0.45)) {
+      return x1;
+    }
+    if(dist2 < 0.45 && dist2 > -0.265) {
+      return x2;
+    }
+    if(dist3 < 0.265 && dist4 > -0.58) {
+      return x3;
+    }
+    if(dist4 < 0.58 && dist5 > -0.265) {
+      return x4;
+    }
+    if(dist5 < 0.265 && dist6 > -0.45) {
+      return x5;
+    }
+    if(Math.abs(dist6) < Math.abs(0.45)) {
+      return x6;
+    }
+    return 0;
+  }
+
+  public double cubeminimizer(double x1, double x2, double x3, double x4, double value) {
+    double dist1 = value - x1;
+    double dist2 = value - x2;
+    double dist3 = value - x3;
+    if(Math.abs(dist1) < Math.abs(0.835)) {
+      return x1;
+    }
+    if(Math.abs(dist2) < Math.abs(0.835)) {
+      return x2;
+    }
+    if(Math.abs(dist3) < Math.abs(0.835)) {
+      return x3;
+    }
+    return 0;
+  }
+
   @Override
   public void periodic() {
 /*    SmartDashboard.putNumber("Gyro Yaw", m_gyro.getYaw());
