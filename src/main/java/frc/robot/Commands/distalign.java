@@ -17,6 +17,7 @@ public class distalign extends CommandBase {
   public distalign(Limelight cams, drive Tank, PIDController pid) {
     mTank_Drive = Tank;
     m_Cams = cams;
+    mPID = pid;
     addRequirements(Tank);
   }
 
@@ -27,7 +28,7 @@ public class distalign extends CommandBase {
 
   @Override
   public void execute() {
-    mTank_Drive.arcadeDrive(mPID.calculate( mTank_Drive.aAlign(m_Cams.getTarget2d(), 5), 0), 0);
+    mTank_Drive.arcadeDrive(-mPID.calculate( mTank_Drive.aAlign(m_Cams.getTarget2d(), 2.6), 0), 0);
   }
 
   @Override

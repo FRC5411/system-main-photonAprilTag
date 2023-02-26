@@ -13,21 +13,17 @@ public class drive extends SubsystemBase {
   WPI_TalonSRX TopRight;
   WPI_TalonSRX BottomLeft;
   WPI_TalonSRX BottomRight;
-  MotorControllerGroup Right;
-  MotorControllerGroup Left;
   DifferentialDrive Tank_Drive;
   AHRS m_gyro;
 
   public drive(AHRS gyro) {
-    TopLeft = new WPI_TalonSRX(4);
-    TopRight = new WPI_TalonSRX(1);
-    BottomLeft = new WPI_TalonSRX(2);
-    BottomRight = new WPI_TalonSRX(3);
+    TopLeft = new WPI_TalonSRX(12);
+    TopRight = new WPI_TalonSRX(15);
+    BottomLeft = new WPI_TalonSRX(13);
+    BottomRight = new WPI_TalonSRX(14);
 
     m_gyro = gyro;
-/*
-    Left = new MotorControllerGroup(TopLeft, BottomLeft);
-    Right = new MotorControllerGroup(TopRight, BottomRight);*/
+
     TopLeft.follow(BottomLeft);
     TopRight.follow(BottomRight);
 
@@ -35,8 +31,8 @@ public class drive extends SubsystemBase {
     TopRight.setNeutralMode(NeutralMode.Brake);
     BottomLeft.setNeutralMode(NeutralMode.Brake);
     BottomRight.setNeutralMode(NeutralMode.Brake);
-
-    Right.setInverted(true);
+    TopRight.setInverted(true);
+    BottomRight.setInverted(true);
 
     Tank_Drive = new DifferentialDrive(BottomLeft, BottomRight);
   }

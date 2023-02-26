@@ -17,6 +17,7 @@ public class anglealign extends CommandBase {
   public anglealign(Limelight cams, drive Tank, PIDController pid) {
     mTank_Drive = Tank;
     m_Cams = cams;
+    mPID = pid;
     addRequirements(Tank);
   }
 
@@ -27,7 +28,7 @@ public class anglealign extends CommandBase {
 
   @Override
   public void execute() {
-    mTank_Drive.arcadeDrive(0, mPID.calculate(m_Cams.getYaw(), mTank_Drive.aAlign(m_Cams.getTarget2d(), 5)));
+    mTank_Drive.arcadeDrive(0, -mPID.calculate(m_Cams.getYaw(), mTank_Drive.aAlign(m_Cams.getTarget2d(), 2.6)));
   }
 
   @Override

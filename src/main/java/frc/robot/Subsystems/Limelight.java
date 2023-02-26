@@ -17,7 +17,7 @@ public class Limelight extends SubsystemBase {
   public Limelight() {
     limelight = NetworkTableInstance.getDefault().getTable("limelight");
     pipelineIndex = false;
-    team = "blue";
+    team = "red";
   }
 
   public void switchPipeline() {

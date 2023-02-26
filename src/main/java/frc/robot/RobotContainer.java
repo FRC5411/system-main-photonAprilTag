@@ -27,21 +27,21 @@ public class RobotContainer {
 
   public RobotContainer() {
     cam = new Limelight();
-    controller = new CommandXboxController(0);
-/*    camera = new PhotonCamera("Microsoft_LifeCam_HD-3000");
-    result = new PhotonPipelineResult();
-    target = new PhotonTrackedTarget();*/
+    controller = new CommandXboxController(0); 
     A = controller.a();
     B = controller.b();
     X = controller.x();
 
     side_pid = new PIDController(5, 0, 0);
-    angle_pid = new PIDController(0.045, 0, 0.25);
+    angle_pid = new PIDController(0.04, 0, 0.2);
+//    angle_pid = new PIDController(0, 0, 0);
     move_pid = new PIDController(0.8, 0.1, 0);
 
-    angle_pid.setTolerance(5);
+    angle_pid.setTolerance(1);
 
     navX = new AHRS(SPI.Port.kMXP);
+
+    navX.zeroYaw();
 
     tankDrive = new drive(navX);
 
@@ -56,7 +56,7 @@ public class RobotContainer {
     controller.a().onTrue(new anglealign(cam, tankDrive, angle_pid));
     controller.a().onFalse(new InstantCommand(tankDrive::stop, tankDrive));
 
-    controller.b().onTrue(new distalign(cam, tankDrive, move_pid));
+    controller.b().onTrue(new DefaultDrive(() -> move_pid.calculate(cam.getPose().getX(), 2.6), () -> 0, tankDrive));
     controller.b().onFalse(new InstantCommand(tankDrive::stop, tankDrive));
 
     controller.y().onTrue(new AutoEngageCommand(tankDrive, navX));
