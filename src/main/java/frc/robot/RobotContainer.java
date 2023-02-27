@@ -9,6 +9,7 @@ import frc.robot.Commands.AutoEngageCommand;
 import frc.robot.Commands.DefaultDrive;
 import frc.robot.Commands.anglealign;
 import frc.robot.Commands.distalign;
+import frc.robot.Subsystems.Arm;
 import frc.robot.Subsystems.Limelight;
 import frc.robot.Subsystems.drive;
 
@@ -24,9 +25,12 @@ public class RobotContainer {
   Trigger B;
   Trigger X;
   AHRS navX;
+  Arm arm;
 
   public RobotContainer() {
     cam = new Limelight();
+    arm = new Arm();
+
     controller = new CommandXboxController(0); 
     A = controller.a();
     B = controller.b();
@@ -34,7 +38,6 @@ public class RobotContainer {
 
     side_pid = new PIDController(5, 0, 0);
     angle_pid = new PIDController(0.04, 0, 0.2);
-//    angle_pid = new PIDController(0, 0, 0);
     move_pid = new PIDController(0.8, 0.1, 0);
 
     angle_pid.setTolerance(1);
@@ -59,7 +62,7 @@ public class RobotContainer {
     controller.b().onTrue(new DefaultDrive(() -> move_pid.calculate(cam.getPose().getX(), 2.6), () -> 0, tankDrive));
     controller.b().onFalse(new InstantCommand(tankDrive::stop, tankDrive));
 
-    controller.y().onTrue(new AutoEngageCommand(tankDrive, navX));
+    controller.y().onTrue(new InstantCommand(() -> arm.setArm(0.1), arm));
     controller.y().onFalse(new InstantCommand(() -> tankDrive.stop(), tankDrive));
   
     tankDrive.setDefaultCommand(new DefaultDrive(() -> controller.getLeftY(),
