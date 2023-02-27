@@ -46,17 +46,17 @@ public class RobotContainer {
 
     navX.zeroYaw();
 
-    tankDrive = new drive(navX);
+//    tankDrive = new drive(navX);
 
-    tankDrive.setDefaultCommand(new DefaultDrive(() -> controller.getLeftY(),
+/*    tankDrive.setDefaultCommand(new DefaultDrive(() -> controller.getLeftY(),
      () -> controller.getRightX(), 
-     tankDrive));
+     tankDrive));*/
 
     configureBindings();
   }
 
   private void configureBindings() {
-    controller.a().onTrue(new anglealign(cam, tankDrive, angle_pid));
+/*    controller.a().onTrue(new anglealign(cam, tankDrive, angle_pid));
     controller.a().onFalse(new InstantCommand(tankDrive::stop, tankDrive));
 
     controller.b().onTrue(new DefaultDrive(() -> move_pid.calculate(cam.getPose().getX(), 2.6), () -> 0, tankDrive));
@@ -67,6 +67,9 @@ public class RobotContainer {
   
     tankDrive.setDefaultCommand(new DefaultDrive(() -> controller.getLeftY(),
     () -> controller.getRightX(), 
-    tankDrive));
+    tankDrive));*/
+
+    controller.a().onTrue(new InstantCommand(() -> arm.setArm(0.05), arm));
+    controller.a().onFalse(new InstantCommand(() -> arm.stop(), arm));
   }
 }

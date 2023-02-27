@@ -39,6 +39,10 @@ public class Arm extends SubsystemBase {
         biscepPID.setReference(angle, CANSparkMax.ControlType.kPosition);
     }
 
+    public void stop() {
+      setArm(0);
+    }
+
 /*    public void lowArmScore() {
         posArm(ARM.LOW_ARM_ANG);
         posElbows(ARM.LOW_ELBOW_ANG);  
