@@ -7,7 +7,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-// Test code to change between pipelines on limelight
 public class Limelight extends SubsystemBase {
   private NetworkTable limelight;
   private boolean pipelineIndex;

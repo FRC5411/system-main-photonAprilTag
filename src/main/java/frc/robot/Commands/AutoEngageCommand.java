@@ -10,16 +10,16 @@ public class AutoEngageCommand extends CommandBase {
   private double errorYaw;
   private double drivePowerPitch;
   private double drivePowerYaw;
-  /** Command to use Gyro data to resist the tip angle from the beam - to stabalize and balanace */
+
   public AutoEngageCommand(drive parameterSubsystem, AHRS parameternavX) {
     this.robotDrive = parameterSubsystem;
     this.navX = parameternavX;
     addRequirements(parameterSubsystem);
   }
-  // Called when the command is initially scheduled.
+
   @Override
   public void initialize() {}
-  // Called every time the scheduler runs while the command is scheduled.
+  
   @Override
   public void execute() {
     errorYaw = navX.getYaw() - AutoEngage.TARGET_YAW;
