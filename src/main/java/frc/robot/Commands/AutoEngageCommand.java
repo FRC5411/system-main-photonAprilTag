@@ -3,6 +3,7 @@ import frc.robot.Constants.AutoEngage;
 import frc.robot.Subsystems.drive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import com.kauailabs.navx.frc.AHRS;
+
 public class AutoEngageCommand extends CommandBase {
   private drive robotDrive;
   private AHRS navX;
@@ -19,7 +20,7 @@ public class AutoEngageCommand extends CommandBase {
 
   @Override
   public void initialize() {}
-  
+
   @Override
   public void execute() {
     errorYaw = navX.getYaw() - AutoEngage.TARGET_YAW;

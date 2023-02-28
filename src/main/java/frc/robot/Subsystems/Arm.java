@@ -5,11 +5,8 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxPIDController.AccelStrategy;
 import com.revrobotics.SparkMaxPIDController;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-
 
 public class Arm extends SubsystemBase {
     private final CANSparkMax mBiscep;

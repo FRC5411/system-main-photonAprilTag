@@ -8,8 +8,6 @@ public class DefaultDrive extends CommandBase {
   DoubleSupplier m_rotation;
   drive m_drive;
 
-
-
   public DefaultDrive(DoubleSupplier speed, DoubleSupplier rotation, drive Drive) {
     m_speed = speed;
     m_rotation  = rotation;
