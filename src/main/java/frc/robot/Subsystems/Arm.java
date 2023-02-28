@@ -26,7 +26,7 @@ public class Arm extends SubsystemBase {
 
         biscepPID = mBiscep.getPIDController(); 
 
-        configPID(0.1, 0.05, 0, 0.1, 0.11, 0, biscepEncoder, biscepPID);
+        configPID(0.1, 0.05, 0, 0.1, 0.11,  0.2, 0, biscepEncoder, biscepPID);
     }
 
     public void setArm(double speed) {
@@ -48,7 +48,8 @@ public class Arm extends SubsystemBase {
     
     @Override  public void simulationPeriodic() {}
 
-    public void configPID(double kp, double kd, double FF, double maxV, double maxA, int profile, RelativeEncoder encoder, SparkMaxPIDController controller) {
+    public void configPID(double kp, double kd, double FF, double maxV, double maxA, double tolerance, int profile, RelativeEncoder encoder, SparkMaxPIDController controller) {
+        controller.setSmartMotionAllowedClosedLoopError(tolerance, profile);
         controller.setP(kp, profile);
         controller.setD(kd, profile);
         controller.setFF(FF, profile);
