@@ -45,46 +45,6 @@ public class Arm extends SubsystemBase {
       setArm(0);
     }
 
-/*    public void lowArmScore() {
-        posArm(ARM.LOW_ARM_ANG);
-        posElbows(ARM.LOW_ELBOW_ANG);  
-        posClaws(ARM.LOW_CLAW_ANG);
-    }
-
-    public void highArmScore() {
-        posArm(ARM.HIGH_ARM_ANG);
-        posElbows(ARM.HIGH_ELBOW_ANG);  
-        posClaws(ARM.HIGH_CLAW_ANG);
-    }
-    
-    public void idleArmScore() {
-        posArm(ARM.IDLE_ARM_ANG);
-        posElbows(ARM.IDLE_ELBOW_ANG);  
-        posClaws(ARM.IDLE_CLAW_ANG);
-    }
-
-    public void fetch() {
-        posArm(ARM.FETCH_ARM_ANG);
-        posElbows(ARM.FETCH_ELBOW_ANG);  
-        posClaws(ARM.FETCH_CLAW_ANG);
-    }
-
-    public Command midScore(Arm arm) {
-        return new InstantCommand(() -> lowArmScore(), arm);
-    }
-
-    public Command highScore(Arm arm) {
-        return new InstantCommand(() -> highArmScore(), arm);
-    }
-    
-    public Command lowScore(Arm arm) {
-        return new InstantCommand(() -> idleArmScore(), arm);
-    }
-    
-    public Command fetch(Arm arm) {
-        return new InstantCommand(() -> fetch(), arm);
-    }*/
-
     @Override  public void periodic() {
       SmartDashboard.putNumber("Arm Pos", biscepEncoder.getPosition());
     }
