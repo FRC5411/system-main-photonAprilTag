@@ -5,6 +5,8 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxPIDController.AccelStrategy;
 import com.revrobotics.SparkMaxPIDController;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
@@ -27,7 +29,7 @@ public class Arm extends SubsystemBase {
 
         biscepPID = mBiscep.getPIDController(); 
 
-        configPID(0.1, 0, 0, 0, 0, 0, biscepEncoder, biscepPID);
+        configPID(0.1, 0.05, 0, 0.1, 0.11, 0, biscepEncoder, biscepPID);
     }
 
     public void setArm(double speed) {
@@ -84,6 +86,7 @@ public class Arm extends SubsystemBase {
     }*/
 
     @Override  public void periodic() {
+      SmartDashboard.putNumber("Arm Pos", biscepEncoder.getPosition());
     }
     
     @Override  public void simulationPeriodic() {}

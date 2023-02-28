@@ -5,10 +5,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.SPI;
-import frc.robot.Commands.AutoEngageCommand;
-import frc.robot.Commands.DefaultDrive;
-import frc.robot.Commands.anglealign;
-import frc.robot.Commands.distalign;
 import frc.robot.Subsystems.Arm;
 import frc.robot.Subsystems.Limelight;
 import frc.robot.Subsystems.drive;
@@ -71,5 +67,8 @@ public class RobotContainer {
 
     controller.a().onTrue(new InstantCommand(() -> arm.setArm(0.05), arm));
     controller.a().onFalse(new InstantCommand(() -> arm.stop(), arm));
+
+    controller.b().onTrue(new InstantCommand(() -> arm.posArm(90), arm));
+    controller.b().onFalse(new InstantCommand(() -> arm.stop(), arm));
   }
 }
