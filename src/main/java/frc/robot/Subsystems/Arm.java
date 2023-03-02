@@ -1,12 +1,10 @@
 package frc.robot.Subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxAbsoluteEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxPIDController.AccelStrategy;
 import com.revrobotics.SparkMaxPIDController;
-
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
@@ -15,27 +13,20 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Arm extends SubsystemBase {
     private final CANSparkMax mBiscep;
-    private final DutyCycleEncoder biscepEncoder;  
-    private final SparkMaxPIDController biscepPID;  
+    private final DutyCycleEncoder biscepEncoder;
     private final ProfiledPIDController biscepPID2;
 
     public Arm() {
-        double convert = 360/8192;
-
         mBiscep = new CANSparkMax(12, MotorType.kBrushless);
 
         mBiscep.setIdleMode(IdleMode.kBrake);
 
         biscepEncoder = new DutyCycleEncoder(9);
 
-        biscepPID = mBiscep.getPIDController();
-
         biscepPID2 = new ProfiledPIDController(/*4.495605*/ 0.040, 0, 0.0, 
         new TrapezoidProfile.Constraints(360, 379));
 
         biscepPID2.setTolerance(2);
-
-//        configPID(0.1, 0.05, 0, 0.1, 0.11,  0.2, 0, biscepEncoder, biscepPID);
     }
 
     public void setArm(double speed) {
