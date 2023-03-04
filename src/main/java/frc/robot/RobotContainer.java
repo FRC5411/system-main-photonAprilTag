@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.SPI;
 import frc.robot.Subsystems.Arm;
+import frc.robot.Subsystems.CANDLE;
 import frc.robot.Subsystems.Limelight;
 import frc.robot.Subsystems.drive;
 
@@ -21,11 +22,13 @@ public class RobotContainer {
   Trigger B;
   Trigger X;
   AHRS navX;
-  Arm arm;
+//  Arm arm;
+  CANDLE led;
 
   public RobotContainer() {
     cam = new Limelight();
-    arm = new Arm();
+//    arm = new Arm();
+    led = new CANDLE();
 
     controller = new CommandXboxController(0); 
     A = controller.a();
@@ -64,7 +67,7 @@ public class RobotContainer {
     tankDrive.setDefaultCommand(new DefaultDrive(() -> controller.getLeftY(),
     () -> controller.getRightX(), 
     tankDrive));*/
-
+/* 
     controller.a().onTrue(new InstantCommand(() -> arm.setArm(0.05), arm));
     controller.a().onFalse(new InstantCommand(() -> arm.stop(), arm));
 
@@ -72,9 +75,9 @@ public class RobotContainer {
     controller.b().onFalse(new InstantCommand(() -> arm.stop(), arm));
 
     controller.x().onTrue(new InstantCommand(() -> arm.setArm(-arm.posArm(90)), arm));
-    controller.x().onFalse(new InstantCommand(() -> arm.stop(), arm));
+    controller.x().onFalse(new InstantCommand(() -> arm.stop(), arm));*/
 
-    controller.y().onTrue(null);
-    controller.y().onTrue(null);
+    controller.y().onTrue(new InstantCommand(() -> led.count(), led));
+    controller.y().onTrue(new InstantCommand(() -> led.count(), led));
   }
 }
