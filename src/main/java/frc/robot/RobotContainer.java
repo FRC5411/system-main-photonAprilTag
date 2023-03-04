@@ -70,5 +70,11 @@ public class RobotContainer {
 
     controller.b().onTrue(new InstantCommand(() -> arm.setArm(-arm.posArm(90)), arm));
     controller.b().onFalse(new InstantCommand(() -> arm.stop(), arm));
+
+    controller.x().onTrue(new InstantCommand(() -> arm.setArm(-arm.posArm(90)), arm));
+    controller.x().onFalse(new InstantCommand(() -> arm.stop(), arm));
+
+    controller.y().onTrue(null);
+    controller.y().onTrue(null);
   }
 }
