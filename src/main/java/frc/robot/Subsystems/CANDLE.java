@@ -1,32 +1,42 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.Subsystems;
-
 import com.ctre.phoenix.led.CANdle;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class CANDLE extends SubsystemBase {
-  private CANdle LED;
-  private PWMSparkMax LEDS;
+  private CANdle CANLED;
+  private AddressableLED LEDS;
+  private AddressableLEDBuffer mbuffer;
 
   public CANDLE() {
-    LED = new CANdle(12);
-    LEDS = new PWMSparkMax(0);
-    }
+    CANLED = new CANdle(12);
+    LEDS = new AddressableLED(0);
+    mbuffer = set(255, 255, 255);
+
+    LEDS.setData(mbuffer);
+  }
 
   public void count() {
-    LED.setLEDs(240, 240, 240, 240, 0, 400);
+    CANLED.setLEDs(240, 240, 240, 240, 0, 400);
   }
 
   public void stop() {
-    LED.setLEDs(0, 0, 0, 0, 0, 0);
+    CANLED.setLEDs(0, 0, 0, 0, 0, 0);
+  }
+
+  public AddressableLEDBuffer set(int r, int g, int b) {
+    AddressableLEDBuffer buffer = new AddressableLEDBuffer(400);
+    int i = 0;
+    while(buffer.getLength() < i) {
+      buffer.setRGB(i, r, g, b);
+      i += 1;
+    }
+    return buffer;
   }
 
   @Override
   public void periodic() {
-    LEDS.set(0.5);
+    set(255, 255, 255);
   }
 }

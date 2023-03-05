@@ -3,9 +3,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.SPI;
-import frc.robot.Subsystems.Arm;
 import frc.robot.Subsystems.CANDLE;
 import frc.robot.Subsystems.Limelight;
 import frc.robot.Subsystems.drive;
@@ -18,9 +16,6 @@ public class RobotContainer {
   PIDController move_pid;
   PIDController side_pid;
   CommandXboxController controller;
-  Trigger A;
-  Trigger B;
-  Trigger X;
   AHRS navX;
 //  Arm arm;
   CANDLE led;
@@ -31,9 +26,6 @@ public class RobotContainer {
     led = new CANDLE();
 
     controller = new CommandXboxController(0); 
-    A = controller.a();
-    B = controller.b();
-    X = controller.x();
 
     side_pid = new PIDController(5, 0, 0);
     angle_pid = new PIDController(0.04, 0, 0.2);
