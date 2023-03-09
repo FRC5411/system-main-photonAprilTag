@@ -1,12 +1,13 @@
 package frc.robot;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+//import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj.SPI;
-import frc.robot.Subsystems.CANDLE;
 import frc.robot.Subsystems.Limelight;
 import frc.robot.Subsystems.drive;
+
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
 public class RobotContainer {
   Limelight cam;
@@ -18,12 +19,11 @@ public class RobotContainer {
   CommandXboxController controller;
   AHRS navX;
 //  Arm arm;
-  CANDLE led;
+  
 
   public RobotContainer() {
     cam = new Limelight();
 //    arm = new Arm();
-    led = new CANDLE();
 
     controller = new CommandXboxController(0); 
 
@@ -33,10 +33,11 @@ public class RobotContainer {
 
     angle_pid.setTolerance(1);
 
-    navX = new AHRS(SPI.Port.kMXP);
 
-    navX.zeroYaw();
-
+    // Reuse buffer
+    // Default to a length of 60, start empty output
+    // Length is expensive to set, so only set it once, then just update data
+    
 //    tankDrive = new drive(navX);
 
 /*    tankDrive.setDefaultCommand(new DefaultDrive(() -> controller.getLeftY(),
@@ -68,8 +69,5 @@ public class RobotContainer {
 
     controller.x().onTrue(new InstantCommand(() -> arm.setArm(-arm.posArm(90)), arm));
     controller.x().onFalse(new InstantCommand(() -> arm.stop(), arm));*/
-
-    controller.y().onTrue(new InstantCommand(() -> led.count(), led));
-    controller.y().onTrue(new InstantCommand(() -> led.count(), led));
   }
 }
