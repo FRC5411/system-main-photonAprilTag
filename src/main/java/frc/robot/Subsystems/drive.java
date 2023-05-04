@@ -1,7 +1,7 @@
 package frc.robot.Subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.kauailabs.navx.frc.AHRS;
+import com.ctre.phoenix.sensors.Pigeon2;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -13,9 +13,9 @@ public class drive extends SubsystemBase {
   WPI_TalonSRX BottomLeft;
   WPI_TalonSRX BottomRight;
   DifferentialDrive Tank_Drive;
-  AHRS m_gyro;
+  Pigeon2 m_gyro;
 
-  public drive(AHRS gyro) {
+  public drive(Pigeon2 gyro) {
     TopLeft = new WPI_TalonSRX(12);
     TopRight = new WPI_TalonSRX(15);
     BottomLeft = new WPI_TalonSRX(13);
@@ -34,6 +34,8 @@ public class drive extends SubsystemBase {
     BottomRight.setInverted(true);
 
     Tank_Drive = new DifferentialDrive(BottomLeft, BottomRight);
+
+    gyro.setYaw(0);
   }
 
   public void stop() {

@@ -1,13 +1,12 @@
 package frc.robot;
+import com.ctre.phoenix.sensors.Pigeon2;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.controller.PIDController;
 //import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Commands.DefaultDrive;
 import frc.robot.Subsystems.Limelight;
 import frc.robot.Subsystems.drive;
-
-import edu.wpi.first.wpilibj.AddressableLED;
-import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
 public class RobotContainer {
   Limelight cam;
@@ -17,7 +16,7 @@ public class RobotContainer {
   PIDController move_pid;
   PIDController side_pid;
   CommandXboxController controller;
-  AHRS navX;
+  Pigeon2 NavX;
 //  Arm arm;
   
 
@@ -38,11 +37,11 @@ public class RobotContainer {
     // Default to a length of 60, start empty output
     // Length is expensive to set, so only set it once, then just update data
     
-//    tankDrive = new drive(navX);
+    tankDrive = new drive(NavX);
 
-/*    tankDrive.setDefaultCommand(new DefaultDrive(() -> controller.getLeftY(),
+    tankDrive.setDefaultCommand(new DefaultDrive(() -> controller.getLeftY(),
      () -> controller.getRightX(), 
-     tankDrive));*/
+     tankDrive));
 
     configureBindings();
   }

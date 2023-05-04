@@ -1,20 +1,18 @@
 package frc.robot.Commands;
-import frc.robot.Constants.AutoEngage;
 import frc.robot.Subsystems.drive;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import com.kauailabs.navx.frc.AHRS;
+import com.ctre.phoenix.sensors.Pigeon2;
 
 public class AutoEngageCommand extends CommandBase {
   private drive robotDrive;
-  private AHRS navX;
-  private double errorPitch;
-  private double errorYaw;
-  private double drivePowerPitch;
-  private double drivePowerYaw;
+  private Pigeon2 pigeon2;
+  private PIDController PID;
 
-  public AutoEngageCommand(drive parameterSubsystem, AHRS parameternavX) {
+  public AutoEngageCommand(drive parameterSubsystem, Pigeon2 parameternavX) {
+    PID = new PIDController(0.1, 0, 0.01);
     this.robotDrive = parameterSubsystem;
-    this.navX = parameternavX;
+    this.pigeon2 = parameternavX;
     addRequirements(parameterSubsystem);
   }
 
@@ -23,18 +21,16 @@ public class AutoEngageCommand extends CommandBase {
 
   @Override
   public void execute() {
-    errorYaw = navX.getYaw() - AutoEngage.TARGET_YAW;
-    errorPitch = navX.getPitch() - AutoEngage.TARGET_PITCH;
-    drivePowerPitch = -Math.min(AutoEngage.DRIVEPOWER_KP * errorPitch, 1);
-    drivePowerYaw = -Math.min(AutoEngage.DRIVEPOWER_KP * errorYaw, 1);
-    robotDrive.arcadeDrive(drivePowerPitch, drivePowerYaw);
+    PID.calculate(pigeon2.getYaw(), 0);
+
   }
+  
   @Override
   public void end(boolean interrupted) {
     robotDrive.stop();
   }
   @Override
   public boolean isFinished() {
-    return Math.abs(errorPitch) < AutoEngage.PITCH_TOLERANCE;
+    return PID.atSetpoint();
   }
 }
